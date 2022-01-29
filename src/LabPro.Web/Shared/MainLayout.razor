@@ -1,0 +1,72 @@
+﻿@inherits LabPro.Web.Shared.MainLayoutComponent
+
+<PageTitle>LabPro.Web</PageTitle>
+
+<RadzenHeader>
+    <ChildContent>
+        <div class="row justify-content-start align-items-center">
+            <div class="col-md-6 d-flex align-items-center">
+                <RadzenSidebarToggle Click="@SidebarToggle0Click">
+                </RadzenSidebarToggle>
+                <RadzenLabel Text="Lab Pro">
+                </RadzenLabel>
+            </div>
+            <div class="col-md-6 text-lg-right">
+                <RadzenProfileMenu Visible="@(Security.IsAuthenticated())">
+                    <ChildContent>
+                        <RadzenProfileMenuItem Text="Logout" Value="Logout" Icon="power_settings_new">
+                        </RadzenProfileMenuItem>
+                    </ChildContent>
+                    <Template>
+                        <RadzenLabel Text="@($"{(Security.User.FirstName)}")">
+                        </RadzenLabel>
+                        <RadzenLabel Text="@($"{(Security.User.LastName)}")">
+                        </RadzenLabel>
+                        <RadzenImage Path="@(Security.User.Picture)" style="border-radius: 16px; height: 32px; width: 32px">
+                        </RadzenImage>
+                    </Template>
+                </RadzenProfileMenu>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenHeader>
+
+<RadzenBody @ref="body0">
+    <ChildContent>
+        <RadzenContentContainer Name="main">
+            @Body
+        </RadzenContentContainer>
+    </ChildContent>
+</RadzenBody>
+
+<RadzenSidebar @ref="sidebar0">
+    <ChildContent>
+        <RadzenPanelMenu style="height: 100%">
+            <ChildContent>
+                <RadzenPanelMenuItem Text="Dashboard" Path="/">
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Modeli" Path="/">
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Zahtevi" Path="/">
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Izvestaji" Path="/">
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Korsinici" Path="/">
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Sifarnici">
+                    <RadzenPanelMenuItem Text="Ovlascena lica"></RadzenPanelMenuItem>
+                    <RadzenPanelMenuItem Text="Uvoznici"></RadzenPanelMenuItem>
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Log" Path="/">
+                </RadzenPanelMenuItem>
+            </ChildContent>
+        </RadzenPanelMenu>
+    </ChildContent>
+</RadzenSidebar>
+
+<RadzenFooter>
+    <ChildContent>
+        <RadzenLabel Text="Lab Pro, Copyright Ⓒ 2022"></RadzenLabel>
+    </ChildContent>
+</RadzenFooter>
+

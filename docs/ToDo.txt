@@ -1,0 +1,9 @@
+[] Add ui lib
+[] Add ef code first
+
+
+[] Dinamicki meni
+
+
+Tehnicki dug
+[] Ostao css folder krerian kod kreiranja porjekta - obrisati
