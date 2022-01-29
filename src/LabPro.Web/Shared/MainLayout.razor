@@ -5,13 +5,13 @@
 <RadzenHeader>
     <ChildContent>
         <div class="row justify-content-start align-items-center">
-            <div class="col-md-6 d-flex align-items-center">
+            <div class="col-6 d-flex align-items-center">
                 <RadzenSidebarToggle Click="@SidebarToggle0Click">
                 </RadzenSidebarToggle>
                 <RadzenLabel Text="Lab Pro">
                 </RadzenLabel>
             </div>
-            <div class="col-md-6 text-lg-right">
+            <div class="col-6 text-right">
                 <RadzenProfileMenu Visible="@(Security.IsAuthenticated())">
                     <ChildContent>
                         <RadzenProfileMenuItem Text="Logout" Value="Logout" Icon="power_settings_new">
@@ -22,8 +22,6 @@
                         </RadzenLabel>
                         <RadzenLabel Text="@($"{(Security.User.LastName)}")">
                         </RadzenLabel>
-                        <RadzenImage Path="@(Security.User.Picture)" style="border-radius: 16px; height: 32px; width: 32px">
-                        </RadzenImage>
                     </Template>
                 </RadzenProfileMenu>
             </div>
@@ -54,8 +52,7 @@
                 <RadzenPanelMenuItem Text="Korsinici" Path="/">
                 </RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Sifarnici">
-                    <RadzenPanelMenuItem Text="Ovlascena lica"></RadzenPanelMenuItem>
-                    <RadzenPanelMenuItem Text="Uvoznici"></RadzenPanelMenuItem>
+                    <RadzenPanelMenuItem Text="Kompanije" Path="companies"></RadzenPanelMenuItem>
                 </RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Log" Path="/">
                 </RadzenPanelMenuItem>

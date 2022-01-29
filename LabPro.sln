@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BCEE6788-D
 		docs\ToDo.txt = docs\ToDo.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabPro.Web", "src\LabPro.Web\LabPro.Web.csproj", "{FE109AE8-0D6D-4D7A-97B3-2DDD0604B389}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabPro.Web", "src\LabPro.Web\LabPro.Web.csproj", "{FE109AE8-0D6D-4D7A-97B3-2DDD0604B389}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

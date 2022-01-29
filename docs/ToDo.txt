@@ -1,9 +1,20 @@
-[] Add ui lib
 [] Add ef code first
-
+[] Auditable entity
 
 [] Dinamicki meni
 
 
+
 Tehnicki dug
 [] Ostao css folder krerian kod kreiranja porjekta - obrisati
+
+
+
+
+EF
+dotnet ef migrations add InitialCreate --context LabProContext
+dotnet ef database update --context LabProContext
+
+
+
+cd sourcecode\projects\labpro\src\labpro.web

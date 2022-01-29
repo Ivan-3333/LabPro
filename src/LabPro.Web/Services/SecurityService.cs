@@ -88,6 +88,7 @@ namespace LabPro.Web.Services
 
         public bool IsAuthenticated()
         {
+            return true;
             return Principal != null ? Principal.Identity.IsAuthenticated : false;
         }
     }

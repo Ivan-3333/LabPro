@@ -112,17 +112,17 @@ namespace LabPro.Web
         {
             OnConfiguring(app, env);
 
-            var supportedCultures = new[]
-            {
-                new System.Globalization.CultureInfo("en-US"),
-            };
+            //var supportedCultures = new[]
+            //{
+            //    new System.Globalization.CultureInfo("en-US"),
+            //};
 
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            //app.UseRequestLocalization(new RequestLocalizationOptions
+            //{
+            //    DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US"),
+            //    SupportedCultures = supportedCultures,
+            //    SupportedUICultures = supportedCultures
+            //});
 
             if (env.IsDevelopment())
             {
