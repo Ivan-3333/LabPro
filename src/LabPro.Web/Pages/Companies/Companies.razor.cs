@@ -62,10 +62,10 @@ namespace LabPro.Web.Pages.Companies
 
         protected async System.Threading.Tasks.Task Button0Click(MouseEventArgs args)
         {
-            //var result = await DialogService.OpenAsync<AddCategory>("Add Category", null);
-            //grid0.Reload();
+            var result = await DialogService.OpenAsync<CompanyAdd>("Add Company", null);
+            grid0.Reload();
 
-            //await InvokeAsync(() => { StateHasChanged(); });
+            await InvokeAsync(() => { StateHasChanged(); });
         }
 
         protected async System.Threading.Tasks.Task Grid0RowSelect(Company args)
@@ -80,14 +80,19 @@ namespace LabPro.Web.Pages.Companies
             {
                 int comapnyId = data.Id;
 
-                var deleteCompanyResult = context.Companies
+                var item = context.Companies
                               .Where(i => i.Id == comapnyId)
                               .FirstOrDefault();
 
-                if (deleteCompanyResult != null)
+                context.Companies.Remove(item);
+                context.SaveChanges();
+
+                if (item != null)
                 {
                     grid0.Reload();
                 }
+
+                NotificationService.Notify(NotificationSeverity.Info, $"Error", $"Go baby go");
             }
             catch (Exception ex)
             {

@@ -31,18 +31,43 @@ namespace LabPro.Web.Data
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedBy = _securityService.User.Id;
+                        entry.Entity.CreatedBy = _securityService.User.Name;
                         entry.Entity.Created = DateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _securityService.User.Id;
+                        entry.Entity.LastModifiedBy = _securityService.User.Name;
                         entry.Entity.LastModified = DateTime.Now;
                         break;
                 }
             }
 
             var result = await base.SaveChangesAsync(cancellationToken);
+
+            return result;
+        }
+
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedBy = _securityService.User.Name;
+                        entry.Entity.Created = DateTime.Now;
+                        entry.Entity.LastModifiedBy = _securityService.User.Name;
+                        entry.Entity.LastModified = DateTime.Now;
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Entity.LastModifiedBy = _securityService.User.Name;
+                        entry.Entity.LastModified = DateTime.Now;
+                        break;
+                }
+            }
+
+            var result = base.SaveChanges();
 
             return result;
         }
