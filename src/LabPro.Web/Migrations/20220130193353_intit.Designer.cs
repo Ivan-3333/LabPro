@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabPro.Web.Migrations
 {
     [DbContext(typeof(LabProContext))]
-    [Migration("20220129155456_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220130193353_intit")]
+    partial class intit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace LabPro.Web.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("ContactName")
+                    b.Property<string>("Contact")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -75,6 +75,9 @@ namespace LabPro.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

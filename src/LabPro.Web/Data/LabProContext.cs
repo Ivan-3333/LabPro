@@ -26,7 +26,7 @@ namespace LabPro.Web.Data
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            foreach (var entry in ChangeTracker.Entries<DatabaseEntity>())
             {
                 switch (entry.State)
                 {
@@ -49,7 +49,7 @@ namespace LabPro.Web.Data
 
         public override int SaveChanges()
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            foreach (var entry in ChangeTracker.Entries<DatabaseEntity>())
             {
                 switch (entry.State)
                 {

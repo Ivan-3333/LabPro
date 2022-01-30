@@ -9,6 +9,7 @@ using Radzen;
 using Radzen.Blazor;
 using LabPro.Web.Models;
 using LabPro.Web.Data;
+using LabPro.Web.Pages._Components;
 
 namespace LabPro.Web.Pages.Companies
 {
@@ -32,7 +33,7 @@ namespace LabPro.Web.Pages.Companies
         [Inject]
         protected LabProContext context { get; set; }
 
-        protected RadzenGrid<Company> grid0;
+        protected RadzenGrid<Company> dgData;
 
         IEnumerable<Company> _getCompaniesResult;
         protected IEnumerable<Company> getCompaniesResult
@@ -60,21 +61,21 @@ namespace LabPro.Web.Pages.Companies
             getCompaniesResult = context.Companies.AsQueryable();
         }
 
-        protected async System.Threading.Tasks.Task Button0Click(MouseEventArgs args)
+        protected async Task AddClick(MouseEventArgs args)
         {
-            var result = await DialogService.OpenAsync<CompanyAdd>("Add Company", null);
-            grid0.Reload();
+            var result = await DialogService.OpenAsync<CompanyDetail>("Add Company", new Dictionary<string, object>() { { "Id", 0 } });
+            await dgData.Reload();
 
             await InvokeAsync(() => { StateHasChanged(); });
         }
 
-        protected async System.Threading.Tasks.Task Grid0RowSelect(Company args)
+        protected async Task GridRowSelect(Company args)
         {
-            //var result = await DialogService.OpenAsync<EditCategory>("Edit Category", new Dictionary<string, object>() { { "CategoryID", args.CategoryID } });
-            //await InvokeAsync(() => { StateHasChanged(); });
+            var result = await DialogService.OpenAsync<CompanyDetail>("Edit Category", new Dictionary<string, object>() { { "Id", args.Id } });
+            await InvokeAsync(() => { StateHasChanged(); });
         }
 
-        protected async System.Threading.Tasks.Task GridDeleteButtonClick(MouseEventArgs args, dynamic data)
+        protected async Task GridDeleteButtonClick(MouseEventArgs args, dynamic data)
         {
             try
             {
@@ -84,15 +85,19 @@ namespace LabPro.Web.Pages.Companies
                               .Where(i => i.Id == comapnyId)
                               .FirstOrDefault();
 
-                context.Companies.Remove(item);
-                context.SaveChanges();
-
                 if (item != null)
                 {
-                    grid0.Reload();
+                    bool result = await DialogService.OpenAsync<DeleteDialog>("Confirm", DeleteDialogComponent.DeleteDialogParams(item.Id.ToString(), item.Name));
+                    if (result)
+                    {
+                        context.Companies.Remove(item);
+                        context.SaveChanges();
+
+                        NotificationService.Notify(NotificationSeverity.Info, $"Info", $"Deleted");
+                        await dgData.Reload();
+                    }
                 }
 
-                NotificationService.Notify(NotificationSeverity.Info, $"Error", $"Go baby go");
             }
             catch (Exception ex)
             {

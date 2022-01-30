@@ -1,5 +1,6 @@
 ﻿using LabPro.Web.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Radzen;
 using Radzen.Blazor;
@@ -19,6 +20,9 @@ namespace LabPro.Web.Shared
         protected NotificationService NotificationService { get; set; }
 
         [Inject]
+        protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+        [Inject]
         protected SecurityService Security { get; set; }
 
 
@@ -26,8 +30,19 @@ namespace LabPro.Web.Shared
 
         protected RadzenSidebar sidebar0;
 
+        private void Authenticated()
+        {
+            StateHasChanged();
+        }
+
         protected override async Task OnInitializedAsync()
         {
+            if (Security != null)
+            {
+                Security.Authenticated += Authenticated;
+
+                await Security.InitializeAsync(AuthenticationStateProvider);
+            }
         }
 
 

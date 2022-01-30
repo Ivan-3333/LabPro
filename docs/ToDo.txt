@@ -15,7 +15,7 @@ Tehnicki dug
 COMMANDS
 
 EF
-dotnet ef migrations add InitialCreate --context LabProContext
+dotnet ef migrations add intit --context LabProContext
 dotnet ef database update --context LabProContext
 
 dotnet ef migrations add InitialCreate --context ApplicationIdentityDbContext

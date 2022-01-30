@@ -1,4 +1,5 @@
 ﻿@page "/companies"
+@attribute [Authorize]
 @layout MainLayout
 @inherits CompaniesComponent;
 
@@ -10,15 +11,15 @@
     </RadzenHeading>
     <div class="row">
       <div class="col-md-12">
-        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@AddClick">
         </RadzenButton>
-        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getCompaniesResult" TItem="Company" RowSelect="@Grid0RowSelect">
+        <RadzenGrid @ref="dgData" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getCompaniesResult" TItem="Company" RowSelect="@GridRowSelect">
           <Columns>
             <RadzenGridColumn TItem="Company" Property="Id" Title="Company ID">
             </RadzenGridColumn>
             <RadzenGridColumn TItem="Company" Property="Name" Title="Company Name">
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="Company" Property="ContactName" Title="Contact">
+            <RadzenGridColumn TItem="Company" Property="Contact" Title="Contact">
             </RadzenGridColumn>
             <RadzenGridColumn TItem="Company" Property="City" Title="City">
             </RadzenGridColumn>

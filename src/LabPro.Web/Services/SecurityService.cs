@@ -46,6 +46,13 @@ namespace LabPro.Web.Services
             uriHelper.NavigateTo("Account/Logout", true);
         }
 
+        public async Task<bool> Login(string userName, string password)
+        {
+            uriHelper.NavigateTo("Login", true);
+
+            return true;
+        }
+
         ApplicationUser user;
         public ApplicationUser User
         {
@@ -62,7 +69,7 @@ namespace LabPro.Web.Services
 
         public ClaimsPrincipal Principal { get; set; }
 
-
+        static System.Threading.SemaphoreSlim semaphoreSlim = new System.Threading.SemaphoreSlim(1, 1);
         public async Task<bool> InitializeAsync(AuthenticationStateProvider authenticationStateProvider)
         {
             var authenticationState = await authenticationStateProvider.GetAuthenticationStateAsync();
@@ -70,14 +77,23 @@ namespace LabPro.Web.Services
 
             var name = Principal.Identity.Name;
 
-            if (env.EnvironmentName == "Development" && name == "admin")
-            {
-                user = new ApplicationUser { UserName = name };
-            }
 
             if (user == null && name != null)
             {
-                
+                await semaphoreSlim.WaitAsync();
+                try
+                {
+                    user = await userManager.FindByEmailAsync(name);
+
+                    if (user == null)
+                    {
+                        user = await userManager.FindByNameAsync(name);
+                    }
+                }
+                finally
+                {
+                    semaphoreSlim.Release();
+                }
             }
 
             var result = IsAuthenticated();

@@ -5,15 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LabPro.Web.Models
 {
-    public class Company : AuditableEntity
-    {
-        public int Id { get; set; }
-        
+    public class Company : DatabaseEntity<int>
+    {        
         [Required]
         [StringLength(150)]
         public string Name { get; set; }
         [StringLength(150)]
-        public string ContactName { get; set; }
+        public string Contact { get; set; }
         [StringLength(150)]
         public string Address { get; set; }
         [StringLength(150)]

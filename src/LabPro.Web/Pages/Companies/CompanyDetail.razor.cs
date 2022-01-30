@@ -11,7 +11,7 @@ using LabPro.Web.Models;
 
 namespace LabPro.Web.Pages.Companies
 {
-    public partial class CompanyAddComponent : ComponentBase
+    public partial class CompanyDetailComponent : ComponentBase
     {
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, dynamic> Attributes { get; set; }
@@ -30,6 +30,9 @@ namespace LabPro.Web.Pages.Companies
 
         [Inject]
         protected LabProContext context { get; set; }
+
+        [Parameter]
+        public int? Id { get; set; }
 
         Company _company;
 
@@ -53,16 +56,31 @@ namespace LabPro.Web.Pages.Companies
         {
             await Load();
         }
-        protected async System.Threading.Tasks.Task Load()
+        protected async Task Load()
         {
-            company = new Company();
+            if ((Id ?? 0) == 0)
+            {
+                company = new Company();
+            }
+            else
+            {
+                company = context.Companies.FirstOrDefault(x => x.Id == Id);
+                if(company == null)
+                {
+                    NotificationService.Notify(NotificationSeverity.Error, $"Error", $"Entity doesnt exist");
+                    DialogService.Close(null);
+                }
+            }
         }
 
-        protected async System.Threading.Tasks.Task Form0Submit(Company args)
+        protected async Task FormSubmit(Company args)
         {
             try
             {
-                var northwindCreateCategoryResult = context.Companies.Add(company);
+                if(company.Id == 0)
+                { 
+                    context.Companies.Add(company);
+                }
                 context.SaveChanges();
                 DialogService.Close(company);
             }
@@ -72,7 +90,7 @@ namespace LabPro.Web.Pages.Companies
             }
         }
 
-        protected async System.Threading.Tasks.Task Button2Click(MouseEventArgs args)
+        protected async Task CancelClick(MouseEventArgs args)
         {
             DialogService.Close(null);
         }
