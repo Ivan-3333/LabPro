@@ -3,17 +3,23 @@
 
 [] Dinamicki meni
 
+[] Login
+[] Gen. repo
+
 
 
 Tehnicki dug
 [] Ostao css folder krerian kod kreiranja porjekta - obrisati
 
 
-
+COMMANDS
 
 EF
 dotnet ef migrations add InitialCreate --context LabProContext
 dotnet ef database update --context LabProContext
+
+dotnet ef migrations add InitialCreate --context ApplicationIdentityDbContext
+dotnet ef database update --context ApplicationIdentityDbContext
 
 
 

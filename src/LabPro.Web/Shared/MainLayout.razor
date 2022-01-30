@@ -12,7 +12,7 @@
                 </RadzenLabel>
             </div>
             <div class="col-6 text-right">
-                <RadzenProfileMenu Visible="@(Security.IsAuthenticated())">
+                <RadzenProfileMenu Visible="@(Security.IsAuthenticated())" Click="@ProfileMenuClick">
                     <ChildContent>
                         <RadzenProfileMenuItem Text="Logout" Value="Logout" Icon="power_settings_new">
                         </RadzenProfileMenuItem>

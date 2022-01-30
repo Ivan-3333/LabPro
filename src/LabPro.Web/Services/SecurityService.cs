@@ -41,6 +41,10 @@ namespace LabPro.Web.Services
             this.uriHelper = uriHelper;
         }
 
+        public async Task Logout()
+        {
+            uriHelper.NavigateTo("Account/Logout", true);
+        }
 
         ApplicationUser user;
         public ApplicationUser User

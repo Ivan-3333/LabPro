@@ -37,5 +37,13 @@ namespace LabPro.Web.Shared
 
             body0.Toggle();
         }
+
+        protected async Task ProfileMenuClick(dynamic args)
+        {
+            if (args.Value == "Logout")
+            {
+                await Security.Logout();
+            }
+        }
     }
 }
