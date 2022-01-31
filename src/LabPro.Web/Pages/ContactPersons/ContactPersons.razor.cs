@@ -11,9 +11,9 @@ using LabPro.Web.Models;
 using LabPro.Web.Data;
 using LabPro.Web.Pages._Components;
 
-namespace LabPro.Web.Pages.Companies
+namespace LabPro.Web.Pages.ContactPersons
 {
-    public partial class CompaniesComponent : ComponentBase
+    public partial class ContactPersonsComponent : ComponentBase
     {
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, dynamic> Attributes { get; set; }
@@ -33,22 +33,22 @@ namespace LabPro.Web.Pages.Companies
         [Inject]
         protected RepositoryProvider repoProvider { get; set; }
 
-        RepositoryBase<Company, int> repo { get; set; }
+        RepositoryBase<ContactPerson, int> repo { get; set; }
 
-        protected RadzenGrid<Company> dgData;
+        protected RadzenGrid<ContactPerson> dgData;
 
-        IEnumerable<Company> _getCompaniesResult;
-        protected IEnumerable<Company> getCompaniesResult
+        IEnumerable<ContactPerson> _getResult;
+        protected IEnumerable<ContactPerson> getResult
         {
             get
             {
-                return _getCompaniesResult;
+                return _getResult;
             }
             set
             {
-                if (!object.Equals(_getCompaniesResult, value))
+                if (!object.Equals(_getResult, value))
                 {
-                    _getCompaniesResult = value;
+                    _getResult = value;
                     InvokeAsync(() => { StateHasChanged(); });
                 }
             }
@@ -56,26 +56,27 @@ namespace LabPro.Web.Pages.Companies
 
         protected override async System.Threading.Tasks.Task OnInitializedAsync()
         {
-            repo = repoProvider.GetCustomRepository<Company, int>();
+            repo = repoProvider.GetCustomRepository<ContactPerson, int>();
             await Load();
         }
         protected async System.Threading.Tasks.Task Load()
         {
-            getCompaniesResult = repo.GetActive();
+            getResult = repo.GetActive(includeProperties: "Company");
         }
 
         protected async Task AddClick(MouseEventArgs args)
         {
-            var result = await DialogService.OpenAsync<CompanyDetail>("Add Company", new Dictionary<string, object>() { { "Id", 0 } });
+            var result = await DialogService.OpenAsync<ContactPersonDetail>("Add Contact", new Dictionary<string, object>() { { "Id", 0 } });
             await dgData.Reload();
 
             await InvokeAsync(() => { StateHasChanged(); });
         }
 
-        protected async Task GridRowSelect(Company args)
+        protected async Task GridRowSelect(ContactPerson args)
         {
-            var result = await DialogService.OpenAsync<CompanyDetail>("Edit Company", new Dictionary<string, object>() { { "Id", args.Id } });
+            var result = await DialogService.OpenAsync<ContactPersonDetail>("Edit Contact", new Dictionary<string, object>() { { "Id", args.Id } });
             await dgData.Reload();
+
             await InvokeAsync(() => { StateHasChanged(); });
         }
 

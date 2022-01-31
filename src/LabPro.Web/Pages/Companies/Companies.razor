@@ -15,11 +15,9 @@
         </RadzenButton>
         <RadzenGrid @ref="dgData" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getCompaniesResult" TItem="Company" RowSelect="@GridRowSelect">
           <Columns>
-            <RadzenGridColumn TItem="Company" Property="Id" Title="Company ID">
+            <RadzenGridColumn TItem="Company" Property="Id" Title="ID">
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="Company" Property="Name" Title="Company Name">
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="Company" Property="Contact" Title="Contact">
+            <RadzenGridColumn TItem="Company" Property="Name" Title="Name">
             </RadzenGridColumn>
             <RadzenGridColumn TItem="Company" Property="City" Title="City">
             </RadzenGridColumn>
@@ -28,6 +26,12 @@
             <RadzenGridColumn TItem="Company" Property="Phone" Title="Phone">
             </RadzenGridColumn>
             <RadzenGridColumn TItem="Company" Property="Email" Title="Email">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Company" Property="IsClient" Title="Client">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Company" Property="IsImporter" Title="Importer">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Company" Property="IsTransporter" Title="Transporter">
             </RadzenGridColumn>
             <RadzenGridColumn TItem="Company" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
               <Template Context="comapny">

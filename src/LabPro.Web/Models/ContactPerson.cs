@@ -5,13 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LabPro.Web.Models
 {
-    public class Company : DatabaseEntity<int>
-    {        
+    public class ContactPerson : DatabaseEntity<int>
+    {
         [Required]
         [StringLength(150)]
-        public string Name { get; set; }
+        public string FistName { get; set; }
 
+        [Required]
         [StringLength(150)]
+        public string LastName { get; set; }
+
+        [StringLength(200)]
         public string Address { get; set; }
 
         [StringLength(150)]
@@ -23,13 +27,10 @@ namespace LabPro.Web.Models
         [StringLength(150)]
         public string Email { get; set; }
 
-        public bool IsClient { get; set; }
-        public bool IsImporter { get; set; }
-        public bool IsTransporter { get; set; }
+        [StringLength(250)]
+        public string Note { get; set; }
 
-        public List<Location> Locations { get; set; }
-
-        public List<ContactPerson> ContactPersons { get; set; }
-
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
     }
 }

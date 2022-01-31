@@ -84,6 +84,8 @@ namespace LabPro.Web
                 o.MaximumReceiveMessageSize = 10 * 1024 * 1024;
             });
 
+            services.AddScoped<RepositoryProvider>();
+
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();

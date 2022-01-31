@@ -1,4 +1,4 @@
-﻿@page "/company_detail/{Id}"
+﻿@page "/conatactperson_detail/{Id}"
 @attribute [Authorize]
 @layout MainLayout
 @inherits CompanyDetailComponent
@@ -21,16 +21,6 @@
                 </RadzenTextBox>
                 <RadzenRequiredValidator Component="Name" Text="Name is required" style="position: absolute">
                 </RadzenRequiredValidator>
-              </div>
-            </div>
-            <div style="margin-bottom: 1rem" class="row">
-              <div class="col-md-3">
-                <RadzenLabel Text="Contact" Component="ContactName" style="width: 100%">
-                </RadzenLabel>
-              </div>
-              <div class="col-md-9">
-                <RadzenTextBox style="width: 100%" @bind-Value="@(company.Contact)" Name="ContactName">
-                </RadzenTextBox>
               </div>
             </div>
             <div style="margin-bottom: 1rem" class="row">
@@ -71,6 +61,36 @@
               <div class="col-md-9">
                 <RadzenTextBox style="width: 100%" @bind-Value="@(company.Email)" Name="Email">
                 </RadzenTextBox>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Client" Component="IsClient" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenCheckBox @bind-Value="@(company.IsClient)" TValue="bool" Name="IsClient">
+                </RadzenCheckBox>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Importer" Component="IsImporter" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenCheckBox @bind-Value="@(company.IsImporter)" TValue="bool" Name="IsImporter">
+                </RadzenCheckBox>
+              </div>
+            </div>
+             <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Transporter" Component="IsTransporter" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenCheckBox @bind-Value="@(company.IsTransporter)" TValue="bool" Name="IsTransporter">
+                </RadzenCheckBox>
               </div>
             </div>
             <div class="row">

@@ -9,9 +9,9 @@ using Radzen;
 using LabPro.Web.Data;
 using LabPro.Web.Models;
 
-namespace LabPro.Web.Pages.Companies
+namespace LabPro.Web.Pages.ContactPersons
 {
-    public partial class CompanyDetailComponent : ComponentBase
+    public partial class ContactPersonComponent : ComponentBase
     {
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, dynamic> Attributes { get; set; }
@@ -37,41 +37,62 @@ namespace LabPro.Web.Pages.Companies
         [Parameter]
         public int? Id { get; set; }
 
-        Company _company;
+        ContactPerson _entity;
 
-        protected Company company
+        protected ContactPerson entity
         {
             get
             {
-                return _company;
+                return _entity;
             }
             set
             {
-                if (!object.Equals(_company, value))
+                if (!object.Equals(_entity, value))
                 {
-                    _company = value;
+                    _entity = value;
                     InvokeAsync(() => { StateHasChanged(); });
                 }
             }
         }
 
-        RepositoryBase<Company, int> repo;
+        IEnumerable<Company> _companies;
+        protected IEnumerable<Company> companies
+        {
+            get
+            {
+                return _companies;
+            }
+            set
+            {
+                if (!object.Equals(_companies, value))
+                {
+                    _companies = value;
+                    InvokeAsync(() => { StateHasChanged(); });
+                }
+            }
+        }
+
+        RepositoryBase<ContactPerson, int> repo;
+
+        RepositoryBase<Company, int> comapnyRepo;
 
         protected override async Task OnInitializedAsync()
         {
-            repo = repoProvider.GetCustomRepository<Company, int>();
+            repo = repoProvider.GetCustomRepository<ContactPerson, int>();
+            comapnyRepo = repoProvider.GetCustomRepository<Company, int>();
+            companies = comapnyRepo.GetActive();
             await Load();
         }
         protected async Task Load()
         {
             if ((Id ?? 0) == 0)
             {
-                company = new Company();
+                entity = new ContactPerson();
             }
             else
             {
-                company = repo.FindSingle(Id ?? 0);
-                if(company == null)
+                entity = repo.FindSingle(Id ?? 0);
+                if(entity == null)
                 {
                     NotificationService.Notify(NotificationSeverity.Error, $"Error", $"Entity doesnt exist");
                     DialogService.Close(null);
@@ -79,16 +100,16 @@ namespace LabPro.Web.Pages.Companies
             }
         }
 
-        protected async Task FormSubmit(Company args)
+        protected async Task FormSubmit(ContactPerson args)
         {
             try
             {
-                if(company.Id == 0)
+                if(entity.Id == 0)
                 {
-                    repo.Add(company);
+                    repo.Add(entity);
                 }
                 repo.SaveChanges();
-                DialogService.Close(company);
+                DialogService.Close(entity);
             }
             catch (Exception ex)
             {

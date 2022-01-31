@@ -1,0 +1,47 @@
+﻿@page "/contactpersons"
+@attribute [Authorize]
+@layout MainLayout
+@inherits ContactPersonsComponent;
+
+@using LabPro.Web.Models
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Kontakti">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@AddClick">
+                </RadzenButton>
+                <RadzenGrid @ref="dgData" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getResult" TItem="ContactPerson" RowSelect="@GridRowSelect">
+                    <Columns>
+                        <RadzenGridColumn TItem="ContactPerson" Property="Id" Title="ID">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="FistName" Title="Fist name">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="LastName" Title="Last name">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="City" Title="City">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="Address" Title="Address">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="Phone" Title="Phone">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="Email" Title="Email">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="Note" Title="Note">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Property="Company.Name" Title="Company">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="ContactPerson" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                            <Template Context="contactPerson">
+                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, contactPerson))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenGridColumn>
+                    </Columns>
+                </RadzenGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

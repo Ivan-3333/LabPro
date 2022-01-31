@@ -8,6 +8,11 @@ namespace LabPro.Web.Data
     public class LabProContext : DbContext
     {
 
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<ContactPerson> ContactPersons { get; set; }
+        public DbSet<Location> Locations { get; set; }
+
+
         private readonly SecurityService _securityService;
 
         public LabProContext(DbContextOptions<LabProContext> options, SecurityService securityService) : base(options)
@@ -15,32 +20,16 @@ namespace LabPro.Web.Data
             _securityService = securityService;
         }
 
-
-        public DbSet<Company> Companies { get; set; }
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Company>().ToTable("Company");
+            modelBuilder.Entity<ContactPerson>().ToTable("ContactPerson");
+            modelBuilder.Entity<Location>().ToTable("Location");
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<DatabaseEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CreatedBy = _securityService.User.Name;
-                        entry.Entity.Created = DateTime.Now;
-                        break;
-
-                    case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _securityService.User.Name;
-                        entry.Entity.LastModified = DateTime.Now;
-                        break;
-                }
-            }
+            UpdateAuditProperties();
 
             var result = await base.SaveChangesAsync(cancellationToken);
 
@@ -49,6 +38,15 @@ namespace LabPro.Web.Data
 
         public override int SaveChanges()
         {
+            UpdateAuditProperties();
+
+            var result = base.SaveChanges();
+
+            return result;
+        }
+
+        private void UpdateAuditProperties()
+        {
             foreach (var entry in ChangeTracker.Entries<DatabaseEntity>())
             {
                 switch (entry.State)
@@ -66,10 +64,6 @@ namespace LabPro.Web.Data
                         break;
                 }
             }
-
-            var result = base.SaveChanges();
-
-            return result;
         }
     }
 }

@@ -170,5 +170,15 @@ namespace LabPro.Web.Data
         {
             context.Set<T>().RemoveRange(entitiesToDelete);
         }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            return await context.SaveChangesAsync(cancellationToken);
+        }
     }
 }
