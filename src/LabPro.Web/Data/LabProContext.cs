@@ -25,6 +25,7 @@ namespace LabPro.Web.Data
             modelBuilder.Entity<Company>().ToTable("Company");
             modelBuilder.Entity<ContactPerson>().ToTable("ContactPerson");
             modelBuilder.Entity<Location>().ToTable("Location");
+            modelBuilder.Entity<Note>().ToTable("Note");
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

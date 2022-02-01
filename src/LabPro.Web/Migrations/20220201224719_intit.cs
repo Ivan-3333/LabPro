@@ -35,6 +35,26 @@ namespace LabPro.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Note",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    SubCategory = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Note", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ContactPerson",
                 columns: table => new
                 {
@@ -110,6 +130,9 @@ namespace LabPro.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Location");
+
+            migrationBuilder.DropTable(
+                name: "Note");
 
             migrationBuilder.DropTable(
                 name: "Company");

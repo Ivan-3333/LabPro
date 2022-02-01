@@ -1,0 +1,52 @@
+﻿@page "/notes"
+@attribute [Authorize]
+@layout MainLayout
+@inherits BasicEntityListComponent<Note, NoteDetail>;
+
+@using LabPro.Web.Models
+@using LabPro.Web.Pages._Components
+
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="@Title()">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@AddClick">
+        </RadzenButton>
+        <RadzenGrid @ref="dgData" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getResult" TItem="Note" RowSelect="@GridRowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="Note" Property="Id" Title="ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Note" Property="Category" Title="Category">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Note" Property="SubCategory" Title="Sub category">
+            </RadzenGridColumn>
+             <RadzenGridColumn TItem="Note" Property="Text" Title="Text">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Note" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="note">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, note))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>
+
+@code {
+
+
+    public override string Title()
+    {
+        return "Napomene";
+    }
+
+    public override string DeleteMsg(Note item)
+    {
+        return $"Obrisi napomenu: {item.Id} - {item.Category} - {item.SubCategory}";
+    }
+}

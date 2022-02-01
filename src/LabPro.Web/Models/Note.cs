@@ -7,10 +7,16 @@ namespace LabPro.Web.Models
 {
     public class Note : DatabaseEntity<int>
     {
+        [Required]
+        public NoteCategory Category { get; set; }
 
+        [Required]
+        [StringLength(100)]
+        public string SubCategory { get; set; }
+        public string Text { get; set; }
     }
 
-    public enum NoteType 
+    public enum NoteCategory
     { 
         MainPage,
         ProfessionalOpinion

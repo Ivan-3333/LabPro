@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabPro.Web.Migrations
 {
     [DbContext(typeof(LabProContext))]
-    [Migration("20220201202131_intit")]
+    [Migration("20220201224719_intit")]
     partial class intit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -206,6 +206,48 @@ namespace LabPro.Web.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Location", (string)null);
+                });
+
+            modelBuilder.Entity("LabPro.Web.Models.Note", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubCategory")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Note", (string)null);
                 });
 
             modelBuilder.Entity("LabPro.Web.Models.ContactPerson", b =>

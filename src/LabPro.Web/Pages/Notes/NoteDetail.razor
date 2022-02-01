@@ -1,0 +1,69 @@
+﻿@page "/note_detail/{Id}"
+@attribute [Authorize]
+@layout MainLayout
+@inherits BasicEntityDetailComponent<Note>
+
+@using LabPro.Web.Models
+@using LabPro.Web.Pages._Components
+
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@entity" Visible="@(entity != null)" TItem="Note" Submit="@FormSubmit">
+          <ChildContent>
+
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Name" Component="Name" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown
+                    style="display: block; width: 100%" 
+                    Data=@(Enum.GetValues(typeof(NoteCategory)))
+                    @bind-Value="@(entity.Category)"
+                    Name="Category"/>
+                <RadzenRequiredValidator Component="Category" Text="Name is required" style="position: absolute">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Sub Category" Component="SubCategory" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox style="display: block; width: 100%"  @bind-Value="@(entity.SubCategory)" Name="SubCategory">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="SubCategory" Text="SubCategory is required" style="position: absolute">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+
+             <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Text" Component="Text" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextArea style="width: 100%" @bind-Value="@(entity.Text)" Name="Text" Rows="8">
+                </RadzenTextArea>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Primary">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="@CancelClick">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>
