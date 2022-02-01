@@ -1,13 +1,14 @@
 ﻿@page "/contactpersons"
 @attribute [Authorize]
 @layout MainLayout
-@inherits ContactPersonsComponent;
+@inherits BasicEntityListComponent<ContactPerson, ContactPersonDetail>;
 
 @using LabPro.Web.Models
+@using LabPro.Web.Pages._Components
 
 <RadzenContent Container="main">
     <ChildContent>
-        <RadzenHeading Size="H1" Text="Kontakti">
+        <RadzenHeading Size="H1" Text="@Title()">
         </RadzenHeading>
         <div class="row">
             <div class="col-md-12">
@@ -17,7 +18,7 @@
                     <Columns>
                         <RadzenGridColumn TItem="ContactPerson" Property="Id" Title="ID">
                         </RadzenGridColumn>
-                        <RadzenGridColumn TItem="ContactPerson" Property="FistName" Title="Fist name">
+                        <RadzenGridColumn TItem="ContactPerson" Property="FirstName" Title="Fist name">
                         </RadzenGridColumn>
                         <RadzenGridColumn TItem="ContactPerson" Property="LastName" Title="Last name">
                         </RadzenGridColumn>
@@ -45,3 +46,22 @@
         </div>
     </ChildContent>
 </RadzenContent>
+
+@code {
+
+
+    public override string Title()
+    {
+        return "Kontakti";
+    }
+
+    public override string DeleteMsg(ContactPerson item)
+    {
+        return $"Obrisi kontak: {item.Id} - {item.FirstName}";
+    }
+
+    public override string IncludeProperties()
+    {
+        return "Company";
+    }
+}

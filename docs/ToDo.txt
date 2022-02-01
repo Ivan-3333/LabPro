@@ -1,15 +1,9 @@
-[] Add ef code first
-[] Auditable entity
-
 [] Dinamicki meni
 
-[] Login
-[] Gen. repo
+[] Log
 
 
 
-Tehnicki dug
-[] Ostao css folder krerian kod kreiranja porjekta - obrisati
 
 
 COMMANDS

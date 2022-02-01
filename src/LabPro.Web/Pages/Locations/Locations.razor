@@ -1,0 +1,59 @@
+﻿@page "/locations"
+@attribute [Authorize]
+@layout MainLayout
+@inherits BasicEntityListComponent<Location, LocationDetail>;
+
+@using LabPro.Web.Models
+@using LabPro.Web.Pages._Components
+
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="@Title()">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@AddClick">
+        </RadzenButton>
+        <RadzenGrid @ref="dgData" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getResult" TItem="Location" RowSelect="@GridRowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="Location" Property="Id" Title="ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Location" Property="Name" Title="Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Location" Property="Address" Title="Address">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Location" Property="Note" Title="Note">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Location" Property="Company.Name" Title="Company">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Location" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="location">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, location))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>
+
+@code {
+
+
+    public override string Title()
+    {
+        return "Lokacije";
+    }
+
+    public override string DeleteMsg(Location item)
+    {
+        return $"Obrisi lokaciju: {item.Id} - {item.Name}";
+    }
+
+    public override string IncludeProperties()
+    {
+        return "Company";
+    }
+}

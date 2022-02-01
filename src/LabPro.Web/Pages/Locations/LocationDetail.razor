@@ -1,7 +1,7 @@
-﻿@page "/contactperson_detail/{Id}"
+﻿@page "/location_detail/{Id}"
 @attribute [Authorize]
 @layout MainLayout
-@inherits BasicEntityDetailComponent<ContactPerson>
+@inherits BasicEntityDetailComponent<Location>
 
 @using LabPro.Web.Data
 @using LabPro.Web.Models
@@ -11,29 +11,17 @@
   <ChildContent>
     <div class="row">
       <div class="col-md-12">
-        <RadzenTemplateForm Data="@entity" Visible="@(entity != null)" TItem="ContactPerson" Submit="@FormSubmit">
+        <RadzenTemplateForm Data="@entity" Visible="@(entity != null)" TItem="Location" Submit="@FormSubmit">
           <ChildContent>
             <div style="margin-bottom: 1rem" class="row">
               <div class="col-md-3">
-                <RadzenLabel Text="Fist name" Component="FistName" style="width: 100%">
+                <RadzenLabel Text="Name" Component="Name" style="width: 100%">
                 </RadzenLabel>
               </div>
               <div class="col-md-9">
-                <RadzenTextBox MaxLength="15" style="display: block; width: 100%" @bind-Value="@(entity.FirstName)" Name="FistName">
+                <RadzenTextBox MaxLength="15" style="display: block; width: 100%" @bind-Value="@(entity.Name)" Name="Name">
                 </RadzenTextBox>
-                <RadzenRequiredValidator Component="FistName" Text="Fist name is required" style="position: absolute">
-                </RadzenRequiredValidator>
-              </div>
-            </div>
-            <div style="margin-bottom: 1rem" class="row">
-              <div class="col-md-3">
-                <RadzenLabel Text="Last name" Component="LastName" style="width: 100%">
-                </RadzenLabel>
-              </div>
-              <div class="col-md-9">
-                <RadzenTextBox MaxLength="15" style="display: block; width: 100%" @bind-Value="@(entity.LastName)" Name="LastName">
-                </RadzenTextBox>
-                <RadzenRequiredValidator Component="LastName" Text="Name is required" style="position: absolute">
+                <RadzenRequiredValidator Component="Name" Text="Name is required" style="position: absolute">
                 </RadzenRequiredValidator>
               </div>
             </div>
@@ -44,36 +32,6 @@
               </div>
               <div class="col-md-9">
                 <RadzenTextBox style="width: 100%" @bind-Value="@(entity.Address)" Name="Address">
-                </RadzenTextBox>
-              </div>
-            </div>
-             <div style="margin-bottom: 1rem" class="row">
-              <div class="col-md-3">
-                <RadzenLabel Text="City" Component="City" style="width: 100%">
-                </RadzenLabel>
-              </div>
-              <div class="col-md-9">
-                <RadzenTextBox style="width: 100%" @bind-Value="@(entity.City)" Name="City">
-                </RadzenTextBox>
-              </div>
-            </div>
-             <div style="margin-bottom: 1rem" class="row">
-              <div class="col-md-3">
-                <RadzenLabel Text="Phone" Component="Phone" style="width: 100%">
-                </RadzenLabel>
-              </div>
-              <div class="col-md-9">
-                <RadzenTextBox style="width: 100%" @bind-Value="@(entity.Phone)" Name="Phone">
-                </RadzenTextBox>
-              </div>
-            </div>
-             <div style="margin-bottom: 1rem" class="row">
-              <div class="col-md-3">
-                <RadzenLabel Text="Email" Component="Email" style="width: 100%">
-                </RadzenLabel>
-              </div>
-              <div class="col-md-9">
-                <RadzenTextBox style="width: 100%" @bind-Value="@(entity.Email)" Name="Email">
                 </RadzenTextBox>
               </div>
             </div>
@@ -115,8 +73,8 @@
 </RadzenContent>
 
 @code{
-
     RepositoryBase<Company, int> companyRepo;
+
     IEnumerable<Company> _companies;
     protected IEnumerable<Company> companies
     {

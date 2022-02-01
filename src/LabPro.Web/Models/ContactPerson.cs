@@ -9,7 +9,7 @@ namespace LabPro.Web.Models
     {
         [Required]
         [StringLength(150)]
-        public string FistName { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
         [StringLength(150)]

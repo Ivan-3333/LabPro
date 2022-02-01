@@ -14,10 +14,7 @@ namespace LabPro.Web.Pages._Components
         protected DialogService DialogService { get; set; }
 
         [Parameter]
-        public string Id1 { get; set; }
-
-        [Parameter]
-        public string Id2 { get; set; }
+        public string Msg { get; set; }
 
 
         protected async Task OkClick(MouseEventArgs args)
@@ -30,12 +27,9 @@ namespace LabPro.Web.Pages._Components
             DialogService.Close(false);
         }
 
-        public static Dictionary<string, object> DeleteDialogParams(string Id1, string Id2)
+        public static Dictionary<string, object> DeleteDialogParams(string msg)
         {
-            return new Dictionary<string, object>() {
-                { "Id1",  Id1},
-                { "Id2",  Id2},
-            };
+            return new Dictionary<string, object>() {{ "Msg",  msg}};
         }
 
     }

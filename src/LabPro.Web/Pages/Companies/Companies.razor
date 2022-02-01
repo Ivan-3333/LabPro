@@ -1,19 +1,20 @@
 ﻿@page "/companies"
 @attribute [Authorize]
 @layout MainLayout
-@inherits CompaniesComponent;
+@inherits BasicEntityListComponent<Company, CompanyDetail>;
 
 @using LabPro.Web.Models
+@using LabPro.Web.Pages._Components
 
 <RadzenContent Container="main">
   <ChildContent>
-    <RadzenHeading Size="H1" Text="Kompanije">
+    <RadzenHeading Size="H1" Text="@Title()">
     </RadzenHeading>
     <div class="row">
       <div class="col-md-12">
         <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@AddClick">
         </RadzenButton>
-        <RadzenGrid @ref="dgData" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getCompaniesResult" TItem="Company" RowSelect="@GridRowSelect">
+        <RadzenGrid @ref="dgData" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getResult" TItem="Company" RowSelect="@GridRowSelect">
           <Columns>
             <RadzenGridColumn TItem="Company" Property="Id" Title="ID">
             </RadzenGridColumn>
@@ -45,3 +46,17 @@
     </div>
   </ChildContent>
 </RadzenContent>
+
+@code {
+
+
+    public override string Title()
+    {
+        return "Kompanije";
+    }
+
+    public override string DeleteMsg(Company item)
+    {
+        return $"Obrisi kompaniju: {item.Id} - {item.Name}";
+    }
+}

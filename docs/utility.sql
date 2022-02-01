@@ -38,6 +38,8 @@ IsClient	IsImporter	IsTransporter
 --drop table AspNetRoles
 --drop table AspNetUsers
 --drop table company
+--drop table location
+--drop table contactPerson
 
 select *
 from AspNetUsers
